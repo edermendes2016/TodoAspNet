@@ -27,71 +27,64 @@
                 <th class="text-center">Opções</th>
             </tr>
 
-            @if (ViewBag.listInit != ViewBag.listTodo)
-            {
-                foreach (var item in ViewBag.listTodo)
+                @if (ViewBag.listTodo != null)
                 {
-                    <tr>
-                        <td>
-                            @item.Texto
-                        </td>
-                        <td class="text-center">
-                            @if (item.Ativo)
-                                    {
+                    foreach (var item in ViewBag.listTodo)
+                    {
+                        <tr>
+                            <td>
+                                @item.Texto
+                            </td>
+                            <td class="text-center">
+                                @if (item.Ativo)
+                                {
                                     <span class="label label-success"> Ativo</span>
 
-                                    }
-                                    else
-                                    {
+                                }
+                                else
+                                {
                                     <span class="label label-default">
                                         Desativo
                                     </span>
-                                    }
-                        </td>
-                        <td class="text-center">
-                            @if (item.Data == Convert.ToDateTime(hoje))
-                                    {
+                                }
+                            </td>
+                            <td class="text-center">
+                                @if (item.Data == Convert.ToDateTime(hoje))
+                                {
                                     <span class="label label-success">
                                         HOJE - @item.Data.ToString("dd/MM/yyyy")
                                     </span>
 
-                                    }
-                                    else if (item.Data < Convert.ToDateTime(hoje))
-                                    {
+                                }
+                                else if (item.Data < Convert.ToDateTime(hoje))
+                                {
                                     <span class="label label-warning">
                                         @item.Data.ToString("dd/MM/yyyy")
                                     </span>
-                                    }
-                                    else
-                                    {
+                                }
+                                else
+                                {
                                     <span class="label label-primary">
                                         @item.Data.ToString("dd/MM/yyyy")
                                     </span>
-                                    }
+                                }
 
-                        </td>
-                        <td class="text-center">
-                            <div class="btn-group btn-group-xs" role="group" aria-label="...">
-                                @Html.ActionLink("Editar", "Edit", new { id = item.Id }, new { @class = "btn btn-xs btn-info" })
-                                @Html.ActionLink("Delete", "Delete", new { id = item.Id }, new { @class = "btn btn-xs btn-danger" })
+                            </td>
+                            <td class="text-center">
+                                <div class="btn-group btn-group-xs" role="group" aria-label="...">
+                                    @Html.ActionLink("Editar", "Edit", new { id = item.Id }, new { @class = "btn btn-xs btn-info" })
+                                    @Html.ActionLink("Delete", "Delete", new { id = item.Id }, new { @class = "btn btn-xs btn-danger" })
 
-                            </div>
+                                </div>
 
-                        </td>
-                    </tr>
+                            </td>
+                        </tr>
+
+                    }
 
                 }
-            }
-
-            else
-            {
-                <tr>
-                    <td></td>
-                    <td class="text-center"></td>
-                    <td class="text-center"></td>
-                    <td class="text-center"></td>
-                </tr>
-            }
+           
+               
 
 
 

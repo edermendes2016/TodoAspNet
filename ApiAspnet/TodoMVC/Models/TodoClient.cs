@@ -7,8 +7,8 @@ namespace TodoMVC.Models
 {
     public class TodoClient
     {
-        // colocar url do localhost
-        private string Base_URL = "http://localhost:4016/api/";
+        // colocar url da API do localhost
+        private string Base_URL = "http://localhost:15417/api/";
 
         public IEnumerable<TodoItem> findAll()
         {

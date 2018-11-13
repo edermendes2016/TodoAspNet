@@ -13,8 +13,7 @@ namespace TodoMVC.Controllers
         // GET: TodoItem
         public ActionResult Index()
         {
-            TodoClient tc = new TodoClient();
-            ViewBag.listInit = null;
+            TodoClient tc = new TodoClient();            
             if(tc != null)
             {
                 ViewBag.listTodo = tc.findAll();
