@@ -1,0 +1,38 @@
+﻿@model TodoMVC.ViewModel.TodoItemViewModel
+
+@{
+    ViewBag.Title = "Edit";
+
+    
+}
+<div class="container">
+    <h1 class="text-center"> Editar Tarefa</h1>
+    @using (Html.BeginForm("edit", "TodoItem", FormMethod.Post))
+    {
+        @Html.HiddenFor(model => model.todoItem.Id)
+        <div class="form-group">
+            @Html.LabelFor(model => model.todoItem.Texto)
+            @Html.TextBoxFor(model => model.todoItem.Texto, new { @class = "form-control" })
+        </div>
+        <div>
+            @Html.CheckBoxFor(model => model.todoItem.Ativo, new { @class = "chkBox" })
+            @Html.LabelFor(model => model.todoItem.Ativo, new { @class = "txt" })
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.todoItem.Data)
+            @Html.TextBoxFor(model => model.todoItem.Data, "{0:yyyy-MM-dd}", new { @class = "form-control required", @type = "date" })
+        </div>
+        <div>
+        </div>
+        
+        <div class="btn-group btn-group-xs" role="group" aria-label="...">            
+            <input type="submit" class="btn-success btn" value="Salvar" />
+            @Html.ActionLink("Voltar", "Index", null, new { @class = "btn btn-info" })
+        </div>
+
+
+    }
+
+</div>
+
+
