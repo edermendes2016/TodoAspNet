@@ -27,57 +27,73 @@
                 <th class="text-center">Opções</th>
             </tr>
 
-            @foreach (var item in ViewBag.listTodo)
+            @if (ViewBag.listInit != ViewBag.listTodo)
+            {
+                foreach (var item in ViewBag.listTodo)
+                {
+                    <tr>
+                        <td>
+                            @item.Texto
+                        </td>
+                        <td class="text-center">
+                            @if (item.Ativo)
+                                    {
+                                    <span class="label label-success"> Ativo</span>
+
+                                    }
+                                    else
+                                    {
+                                    <span class="label label-default">
+                                        Desativo
+                                    </span>
+                                    }
+                        </td>
+                        <td class="text-center">
+                            @if (item.Data == Convert.ToDateTime(hoje))
+                                    {
+                                    <span class="label label-success">
+                                        HOJE - @item.Data.ToString("dd/MM/yyyy")
+                                    </span>
+
+                                    }
+                                    else if (item.Data < Convert.ToDateTime(hoje))
+                                    {
+                                    <span class="label label-warning">
+                                        @item.Data.ToString("dd/MM/yyyy")
+                                    </span>
+                                    }
+                                    else
+                                    {
+                                    <span class="label label-primary">
+                                        @item.Data.ToString("dd/MM/yyyy")
+                                    </span>
+                                    }
+
+                        </td>
+                        <td class="text-center">
+                            <div class="btn-group btn-group-xs" role="group" aria-label="...">
+                                @Html.ActionLink("Editar", "Edit", new { id = item.Id }, new { @class = "btn btn-xs btn-info" })
+                                @Html.ActionLink("Delete", "Delete", new { id = item.Id }, new { @class = "btn btn-xs btn-danger" })
+
+                            </div>
+
+                        </td>
+                    </tr>
+
+                }
+            }
+
+            else
             {
                 <tr>
-                    <td>
-                        @item.Texto
-                    </td>
-                    <td class="text-center">
-                        @if (item.Ativo)
-                        {
-                            <span class="label label-success"> Ativo</span>
-
-                        }
-                        else
-                        {
-                            <span class="label label-default">
-                                Desativo
-                            </span>
-                        }
-                    </td>
-                    <td class="text-center">
-                        @if (item.Data == Convert.ToDateTime(hoje))
-                        {
-                            <span class="label label-success">
-                                HOJE - @item.Data.ToString("dd/MM/yyyy")
-                            </span>
-
-                        }
-                        else if (item.Data < Convert.ToDateTime(hoje))
-                        {
-                            <span class="label label-warning">
-                                @item.Data.ToString("dd/MM/yyyy")
-                            </span>
-                        }
-                        else
-                        {
-                            <span class="label label-primary">
-                                @item.Data.ToString("dd/MM/yyyy")
-                            </span>
-                        }
-
-                    </td>
-                    <td class="text-center">
-                        <div class="btn-group btn-group-xs" role="group" aria-label="...">
-                            @Html.ActionLink("Editar", "Edit", new { id = item.Id }, new { @class = "btn btn-xs btn-info" })
-                            @Html.ActionLink("Delete", "Delete", new { id = item.Id }, new { @class = "btn btn-xs btn-danger" })
-
-                        </div>
-
-                    </td>
+                    <td></td>
+                    <td class="text-center"></td>
+                    <td class="text-center"></td>
+                    <td class="text-center"></td>
                 </tr>
             }
+
+
 
         </table>
     </div>

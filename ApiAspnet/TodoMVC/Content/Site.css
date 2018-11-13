@@ -22,3 +22,12 @@ select,
 textarea {
     max-width: 280px;
 }
+
+.chkBox {
+    height: 20px;
+    width: 20px;
+}
+
+.txt {
+    font-size: 25px;
+}
