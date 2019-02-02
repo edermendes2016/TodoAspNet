@@ -1,14 +1,43 @@
-﻿@{
-    ViewBag.Title = "Home Page";
-}
-
-    <div class="container">      
-        <div id="components-demo">
-            <button-counter class="btn btn-primary"></button-counter>
-        </div>
+﻿<div id="tarefaId" class="container">
+    <h2>{{cabecalho}}</h2>
+    <ul>
+        <li v-for="tarefa in tarefas" v-bind:class="{ 'removido': tarefa.checked }">
+            <div class="checkbox">
+                <label>
+                    <input name="list" type="checkbox" v-model="tarefa.checked">
+                    <big>{{tarefa.titulo}}</big> - <small>{{tarefa.descricao}}</small>
+                </label>
+            </div>
+        </li>
+    </ul>
+    <div class="footer">
+        <hr />
+        <em>Modifique o título da lista:</em>
+        <input v-model="cabecalho" />
     </div>
+
+    <input v-model="novoTitulo" v-keyup.enter="addTarefa"
+           placeholder="Adicionar nova titulo" type="text"
+           class="form-control">
+    <input v-model="novaDescricao" v-keyup.enter="addTarefa"
+           placeholder="Adicionar nova descricao" type="text"
+           class="form-control"> <br>
+
+    <span class="input-group-btn">
+            <button @@click="addTarefa" class="btn btn-primary"
+                    type="button">
+                Adicionar
+            </button>
+        </span>
+
+</div>
 
 
 @section scripts{
-    <script src="~/App/component/home/jumbotronComponent.js"></script>
+
+    <script src="~/App/component/global/adicionarTarefaComponent.js"></script>
+    <script src="~/App/component/global/ButtonComponent.js"></script>
+
+
+
 }
