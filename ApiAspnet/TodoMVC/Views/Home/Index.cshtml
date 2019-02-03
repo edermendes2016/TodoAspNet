@@ -1,5 +1,5 @@
 ﻿<div id="tarefaId" class="container">
-    <h2>{{cabecalho}}</h2>
+    @*<h2>{{cabecalho}}</h2>
     <ul>
         <li v-for="tarefa in tarefas" v-bind:class="{ 'removido': tarefa.checked }">
             <div class="checkbox">
@@ -28,16 +28,13 @@
                     type="button">
                 Adicionar
             </button>
-        </span>
+        </span>*@
 
 </div>
 
 
 @section scripts{
 
-    <script src="~/Apps/component/global/adicionarTarefaComponent.js"></script>
-    <script src="~/Apps/component/global/ButtonComponent.js"></script>
-
-
-
-}
+   
+<script src="~/App/component/home/tarefa.js"></script>
+    }
