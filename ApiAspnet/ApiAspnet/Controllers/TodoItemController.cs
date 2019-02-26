@@ -1,113 +1,37 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using ApiAspnet.Models;
 using System.Data;
 using System.Data.Entity;
-using System.Data.Entity.Infrastructure;
 using System.Linq;
-using System.Net;
 using System.Net.Http;
 using System.Web.Http;
-using System.Web.Http.Description;
-using ApiAspnet.Models;
 
 namespace ApiAspnet.Controllers
 {
-    public class TodoItemController : System.Web.Http.ApiController
+    public class TodoItemController : BaseAPIController
     {
-        private ApplicationDbContext db = new ApplicationDbContext();
-
-        // GET: api/TodoItem
-        public IQueryable<TodoItem> GetTodoItem()
+        public HttpResponseMessage Get()
         {
-            return db.TodoItem;
+            return ToJson(db.TodoItem.AsEnumerable());
         }
 
-        // GET: api/TodoItem/5
-        [ResponseType(typeof(TodoItem))]
-        public IHttpActionResult GetTodoItem(int id)
+        public HttpResponseMessage PostTodoItem([FromBody]TodoItem values)
         {
-            TodoItem todoItem = db.TodoItem.Find(id);
-            if (todoItem == null)
-            {
-                return NotFound();
-            }
-
-            return Ok(todoItem);
+            db.TodoItem.Add(values);
+            return ToJson(db.SaveChanges());
         }
 
-        // PUT: api/TodoItem/5
-        [ResponseType(typeof(void))]
-        public IHttpActionResult PutTodoItem(int id, TodoItem todoItem)
+        public HttpResponseMessage Put(int id, [FromBody]TodoItem values)
         {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-
-            if (id != todoItem.Id)
-            {
-                return BadRequest();
-            }
-
-            db.Entry(todoItem).State = EntityState.Modified;
-
-            try
-            {
-                db.SaveChanges();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!TodoItemExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
-
-            return StatusCode(HttpStatusCode.NoContent);
+            if (TodoItemExists(id))
+                db.Entry(values).State = EntityState.Modified;
+            return ToJson(db.SaveChanges());
         }
 
-        // POST: api/TodoItem
-        [ResponseType(typeof(TodoItem))]
-        public IHttpActionResult PostTodoItem(TodoItem todoItem)
+        public HttpResponseMessage Delete(int id)
         {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-            else if(todoItem.Data.ToString() == "01/01/0001 00:00:00")
-            {
-                todoItem.Data = DateTime.Now;
-                db.TodoItem.Add(todoItem);
-                db.SaveChanges();
-            }
-            else
-            {
-                db.TodoItem.Add(todoItem);
-                db.SaveChanges();
-            }
-
-            return CreatedAtRoute("DefaultApi", new { id = todoItem.Id }, todoItem);
-
-        }
-
-        // DELETE: api/TodoItem/5
-        [ResponseType(typeof(TodoItem))]
-        public IHttpActionResult DeleteTodoItem(int id)
-        {
-            TodoItem todoItem = db.TodoItem.Find(id);
-            if (todoItem == null)
-            {
-                return NotFound();
-            }
-
-            db.TodoItem.Remove(todoItem);
-            db.SaveChanges();
-
-            return Ok(todoItem);
+            if (TodoItemExists(id))
+                db.TodoItem.Remove(db.TodoItem.FirstOrDefault(x => x.Id == id));
+            return ToJson(db.SaveChanges());
         }
 
         protected override void Dispose(bool disposing)
